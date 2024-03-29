@@ -1,0 +1,95 @@
+\documentclass[11pt]{exam}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsfonts, amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{array}
+
+\usepackage{fullpage} % margin formatting
+\usepackage{enumitem} % configure enumerate and itemize
+\usepackage{amsmath, amsfonts, amssymb} % math symbols
+\usepackage{xcolor, colortbl} % colors, including in tables
+\usepackage{makecell} % thicker \Xhline in table
+\usepackage{graphicx} % images, resizing
+\usepackage[T1]{fontenc}
+% sometimes needed packages
+% \usepackage{hyperref} % hyperlinks
+% \usepackage{logicproof} % natural deduction
+\usepackage{tikz} % drawing graphs
+\usepackage{algpseudocode} % pseudocode
+
+% paragraph formatting
+\setlength{\parskip}{6pt}
+\setlength{\parindent}{0cm}
+
+% newline after Solution:
+\renewcommand{\solutiontitle}{\noindent\textbf{Solution:}\par\noindent}
+
+% less space before itemize/enumerate
+\setlist{topsep=0pt}
+
+% creates \filcl to grey out cells for groupwork grading
+\newcommand{\filcl}{\cellcolor{gray!25}}
+
+
+% creates \probnum to get the problem number
+\newcounter{probnumcount}
+\setcounter{probnumcount}{1}
+\newcommand{\probnum}{\arabic{probnumcount}. \addtocounter{probnumcount}{1}}
+
+% use roman numerals by default
+% \setlist[enumerate]{label={(\roman*)}}
+
+% creates custom list environments for grading guidelines, question parts
+\newlist{guidelines}{itemize}{1}
+\setlist[guidelines]{label={}, left=0pt .. \parindent, nosep}
+\newlist{gwguidelines}{enumerate}{1}
+\setlist[gwguidelines]{label={(\roman*)}, nosep}
+\newlist{qparts}{enumerate}{2}
+\setlist[qparts]{label={(\alph*)}}
+\newlist{qsubparts}{enumerate}{2}
+\setlist[qsubparts]{label={(\roman*)}}
+\newlist{stmts}{enumerate}{1}
+\setlist[stmts]{label={(\roman*)}, nosep}
+
+
+
+% in order to compile this file you need to get 'header.tex' from
+% Canvas and change the line below to the appropriate file path
+\input{"/Users/omerjunedi/Documents/math351/individual_hw/header.tex"}
+
+% TODO: always change
+\newcommand{\hwnum}{5}
+\newcommand{\duedate}{Feb 5}
+\usepackage{xcolor}
+
+\hwheader  % header for homework
+% \hwslnheader   % header for homework solutions
+
+%Comment out this line to hid "Solution: ..." boxes.
+\printanswers
+
+\begin{document}
+    \begin{enumerate}
+        \item Prove or disprove the following claim: \textit{There exists a subset of $\R$ that is closed and not bounded}.
+            \begin{solution}
+                The statement is true. Consider $\R$, which is a subset of $\R$. Let $(x_n)$ be a convergent sequence that converges to $x$ such that $x_n \in \R$ for all $n$. By definition $x \in \R$, thus $\R$ is closed. Seeking contradiction, assume that $\R$ is bounded and that $\alpha$ is its upper bound. Then clearly $\alpha > 0$, but we also have that $1 + \alpha > \alpha$ where $1 + \alpha \in \R$, but this contradicts that $\alpha$ is an upper bound. Thus it must be that $\R$ is unbounded. Therefore we have shown a subset of $\R$ (namely $\R$) that is closed and unbounded.
+            \end{solution}
+        \item Prove that if $S$ is a non-empty subset of a bounded set $T$, then $$\inf T \leq \inf S \leq \sup S \leq \sup T$$
+            \begin{solution}
+                $s \leq \sup S$ for all $s \in S$ and $t \leq \sup T$ for all $t \in T$ by definition of supremum. Since $S \subseteq T$ for all $s \in S$, $s \in T$ hence $s \leq \sup T$ for all $s \in S$. Notice that $\sup T$ is an upper bound for $S$, thus $\sup S \leq \sup T$ since $\sup S$ is the \textit{least} upper bound. $\inf S \leq s$ for all $s \in S$ and $\inf T \leq t$ for all $t \in T$ by definition of infimum. Since $S \subseteq T$ for all $s \in S$, $s \in T$ thus $\inf T \leq s$. Notice that $\inf T$ is a lower bound for $S$, thus $\inf T \leq \inf S$ since $\inf S$ is the \textit{greatest} lower bound. Combining the inequalites we get that 
+                $$\inf T \leq \inf S \leq s \leq \sup S \leq \sup T$$
+            \end{solution}
+        \item Let $S$ be a nonempty subset of $\R$. Prove that $-\sup S = \inf -S$ where $-S = \{-s | s \in S\}$
+            \begin{solution}
+                For all $s \in S$ we have $$s \leq \sup S \Longrightarrow -s \geq -\sup S$$ Thus $-\sup S$ is a lower bound for $-S$. So we have that $$-\sup S \leq  \inf -S$$ since $\inf - S$ is the greatest lower bound. 
+                For all $-s \in -S$ we have that $$\inf -S \leq -s \Longrightarrow -\inf -S \geq s$$ Notice that $-\inf -S$ is an upper bound for $S$. Thus $$\sup S \leq -\inf -S \Longrightarrow -\sup S \geq \inf -S$$ So we have shown that $-\sup S \leq  \inf -S$ and that $-\sup S \geq \inf -S$ thus $$-\sup S = \inf -S$$
+            \end{solution}
+        \item Use results we have already established to prove that if $(s_n)$ and $(t_n)$ are convergent, $s = \lim s_n$, $t = \lim t_n \neq 0$, and $t_n$ is non-zero for all $n$, then $\left(\frac{s_n}{t_n}\right)$ converges to $\frac{s}{t}$
+            \begin{solution}
+                $$\lim_{n \to \infty} \frac{s_n}{t_n} = \lim_{n \to \infty} s_n \cdot \frac{1}{t_n} = \lim_{n \to \infty} s_n \cdot \lim_{n \to \infty} \frac{1}{t_n} = s \cdot \frac{1}{t} = \frac{s}{t}$$
+                We proved multiplication limit law in class and from previous HW we proved that if $(x_n)$ converges to $x \neq 0$ and $x_n$ is non-zero for all $n$, then $\left(\frac{1}{x_n}\right)$ converges to $\frac{1}{x}$. Which I applied to $\left(\frac{1}{t_n}\right)$
+            \end{solution}
+    \end{enumerate}
+\end{document}

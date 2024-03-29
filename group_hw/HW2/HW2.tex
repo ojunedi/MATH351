@@ -1,0 +1,112 @@
+\documentclass[11pt]{exam}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsfonts, amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{array}
+
+\usepackage{fullpage} % margin formatting
+\usepackage{enumitem} % configure enumerate and itemize
+\usepackage{amsmath, amsfonts, amssymb} % math symbols
+\usepackage{xcolor, colortbl} % colors, including in tables
+\usepackage{makecell} % thicker \Xhline in table
+\usepackage{graphicx} % images, resizing
+\usepackage[T1]{fontenc}
+% sometimes needed packages
+% \usepackage{hyperref} % hyperlinks
+% \usepackage{logicproof} % natural deduction
+\usepackage{tikz} % drawing graphs
+\usepackage{algpseudocode} % pseudocode
+
+% paragraph formatting
+\setlength{\parskip}{6pt}
+\setlength{\parindent}{0cm}
+
+% newline after Solution:
+\renewcommand{\solutiontitle}{\noindent\textbf{Solution:}\par\noindent}
+
+% less space before itemize/enumerate
+\setlist{topsep=0pt}
+
+% creates \filcl to grey out cells for groupwork grading
+\newcommand{\filcl}{\cellcolor{gray!25}}
+
+
+% creates \probnum to get the problem number
+\newcounter{probnumcount}
+\setcounter{probnumcount}{1}
+\newcommand{\probnum}{\arabic{probnumcount}. \addtocounter{probnumcount}{1}}
+
+% use roman numerals by default
+% \setlist[enumerate]{label={(\roman*)}}
+
+% creates custom list environments for grading guidelines, question parts
+\newlist{guidelines}{itemize}{1}
+\setlist[guidelines]{label={}, left=0pt .. \parindent, nosep}
+\newlist{gwguidelines}{enumerate}{1}
+\setlist[gwguidelines]{label={(\roman*)}, nosep}
+\newlist{qparts}{enumerate}{2}
+\setlist[qparts]{label={(\alph*)}}
+\newlist{qsubparts}{enumerate}{2}
+\setlist[qsubparts]{label={(\roman*)}}
+\newlist{stmts}{enumerate}{1}
+\setlist[stmts]{label={(\roman*)}, nosep}
+
+
+
+% in order to compile this file you need to get 'header.tex' from
+% Canvas and change the line below to the appropriate file path
+\input{"/Users/omerjunedi/Documents/math351/group_hw/header.tex"}
+
+% TODO: always change
+\newcommand{\hwnum}{2}
+\newcommand{\duedate}{Feb 5}
+\usepackage{xcolor}
+
+\hwheader  % header for homework
+%\hwslnheader   % header for homework solutions
+
+%Comment out this line to hid "Solution: ..." boxes.
+\printanswers
+
+\begin{document}
+    \begin{enumerate}
+        \item Prove that if $(x_n)$ converges to $x \neq 0$ and $x_n$ is non-zero for all $n$, then $\left(\frac{1}{x_n}\right)$ converges to $\frac{1}{x}$.
+            \begin{solution}
+                \includegraphics[width=423pt]{"problem1.pdf"}
+            \end{solution}
+        \item 
+            \begin{enumerate}
+                \item Prove that if $(s_n)$ is monotone increasing and unbounded, then $\lim_{n \to \infty} s_n = + \infty$
+                \item Give an example of a sequence that is unbounded but does not diverge to infinity.
+            \end{enumerate}
+            \begin{solution}
+                \begin{enumerate}
+                    \item $(s_n)$ is monotone increasing thus for all $n$, $s_{n+1} \geq s_n$. Since $(s_n)$ is unbounded for any $M \in \R$ there exists an $N \in \R$ such that for $n > N$ we have that $s_n > M$. combining these two facts we get that for $n > N$, $s_n > M$ thus $(s_n)$ converges to infinity.
+                    \item $a_n = n(-1)^n$
+                \end{enumerate}
+            \end{solution}
+        \item 
+            \begin{enumerate}
+                \item Prove that $[a, b]$ is a closed subset of $\R$
+                \item Prove that $[a, b)$ is not a closed subset of $\R$
+            \end{enumerate}
+            \begin{solution}   
+                \begin{enumerate}
+                    \item Suppose $(x_n)$ converges to $x$ and $\{x_n : n \in \N \} \subseteqq [a, b]$. We know that $a \leq x_n \leq b$ for all $n$. Thus $0 \leq x_n - a$ and $b - x_n \geq 0$ for all $n$. By limit laws we can say that $(x_n - a)$ converges to $x - a$ and that $(b - x_n)$ converges to $b - x$. By problem 10 on Worksheet 10 which states if $(s_n)$ is a convergent sequence and that $s_n \geq 0$ for all but finitely many values of $n$, then $\lim_{n \to \infty} \geq 0$, we have that $x - a \geq 0$ and $b -x \geq 0$ thus we have $x \geq a$ and $b \geq x$ combining these inequalities we get that $a \leq x \leq b$. Thus $\lim_{n \to \infty} \in [a, b]$ and hence $[a, b]$ is a closed subset of $\R$. 
+                    \item Consider the sequnece $a_n = b - \frac{b - a}{n}$. Note that $a \leq b - \frac{b - a}{n} < b$ for all $n$, as $\frac{b-a}{n}$ is always greater than 0 thus $b - \frac{b - a}{n}$ must be less than $b$. $a_n$ is lower bounded by $a$ for $n = 1$ and for $ n > 1$ it is less than $b$ as described above. Using results proven in class  $$\lim_{n \to \infty} a_n = \lim_{n \to \infty} b - \frac{b-a}{n} = \lim_{n \to \infty} b - \lim_{n \to \infty}  \frac{b-a}{n} = b - 0 = b$$
+                    Using results proven in class that $\lim_{n \to \infty} 1/n = 0$ and result from the homework stating $\lim_{n \to \infty} cx_n = c \lim_{n \to \infty} x_n$. Note that $\lim_{n \to \infty} a_n \not\in [a, b)$ thus $[a, b)$ is not a closed subset of $\R$.
+                \end{enumerate} 
+            \end{solution}
+        \item Find the supremum and infimum of $\{1 - \frac{1}{n}: n \in \N\}$ and prove that your answer is correct.
+            \begin{solution}
+                $\sup \{1 - \frac{1}{n}: n \in \N\} = 1$. Note that $1 > 1 - \frac{1}{n}$ for all $n$. Thus $1$ is an upper bound for the set. Further, for all $\e > 0$, by the Archimedean property there exists some $N \in \N$ such that $N > 1/\e$. Then $1 - 1 / N > 1 - \e$ and thus $1 - \e$ is not an upper bound for all $\e > 0$. Thus $\sup \{1 - \frac{1}{n}: n \in \N\} = 1$.
+                Claim $\inf \{1 - \frac{1}{n}: n \in \N\} = 0$. Firstly, $0 < 1 - 1/n$ for all $n$ thus 0 is a lower bound for the set. Moreover, for any $\e > 0$ we want to show it is not a lower bound of the set. By the Archimedean principle we know there exists a natural number $N$ such that $N > \frac{1}{1 + \e}$ for all $\e > 0$. Rearranging the inequality we get that $1 - \frac{1}{N} < \e$. Thus $0 + \e$ is not a lower bound of the set for all $\e > 0$. Hence we have that $\inf \{1 - \frac{1}{n}: n \in \N\} = 0$.
+            \end{solution}
+        \item Suppose that $S$ and $T$ are non-empty subsets of $\R$ and that for any $s \in S$ and $t \in T$, $s \leq t$. Prove that sup $S \leq$ inf $T$. 
+            \begin{solution}
+                Fix some $t \in T$. Then $s \leq t$ for all $s \in S$. Thus $t$ is an upper bound of $S$, since $\sup S$ is the least upper bound we have that $\sup S \leq t$ for all $t \in T$. Thus $\sup S$ is a lower bound for $T$, then by definiton of infimum we have that $\sup S \leq \inf T$ because the infinum is the greatest lower bound. 
+            \end{solution}
+    \end{enumerate}
+\end{document}

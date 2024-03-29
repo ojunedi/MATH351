@@ -1,0 +1,120 @@
+\documentclass[11pt]{exam}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsfonts, amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{array}
+
+\usepackage{fullpage} % margin formatting
+\usepackage{enumitem} % configure enumerate and itemize
+\usepackage{amsmath, amsfonts, amssymb} % math symbols
+\usepackage{xcolor, colortbl} % colors, including in tables
+\usepackage{makecell} % thicker \Xhline in table
+\usepackage{graphicx} % images, resizing
+\usepackage[T1]{fontenc}
+% sometimes needed packages
+% \usepackage{hyperref} % hyperlinks
+% \usepackage{logicproof} % natural deduction
+\usepackage{tikz} % drawing graphs
+\usepackage{algpseudocode} % pseudocode
+
+% paragraph formatting
+\setlength{\parskip}{6pt}
+\setlength{\parindent}{0cm}
+
+% newline after Solution:
+\renewcommand{\solutiontitle}{\noindent\textbf{Solution:}\par\noindent}
+
+% less space before itemize/enumerate
+\setlist{topsep=0pt}
+
+% creates \filcl to grey out cells for groupwork grading
+\newcommand{\filcl}{\cellcolor{gray!25}}
+
+
+% creates \probnum to get the problem number
+\newcounter{probnumcount}
+\setcounter{probnumcount}{1}
+\newcommand{\probnum}{\arabic{probnumcount}. \addtocounter{probnumcount}{1}}
+
+% use roman numerals by default
+% \setlist[enumerate]{label={(\roman*)}}
+
+% creates custom list environments for grading guidelines, question parts
+\newlist{guidelines}{itemize}{1}
+\setlist[guidelines]{label={}, left=0pt .. \parindent, nosep}
+\newlist{gwguidelines}{enumerate}{1}
+\setlist[gwguidelines]{label={(\roman*)}, nosep}
+\newlist{qparts}{enumerate}{2}
+\setlist[qparts]{label={(\alph*)}}
+\newlist{qsubparts}{enumerate}{2}
+\setlist[qsubparts]{label={(\roman*)}}
+\newlist{stmts}{enumerate}{1}
+\setlist[stmts]{label={(\roman*)}, nosep}
+
+
+
+% in order to compile this file you need to get 'header.tex' from
+% Canvas and change the line below to the appropriate file path
+\input{"/Users/omerjunedi/Documents/math351/individual_hw/header.tex"}
+
+\newcommand{\hwnum}{2}
+\newcommand{\duedate}{Jan 22}
+\usepackage{xcolor}
+
+
+\hwheader  % header for homework
+%\hwslnheader   % header for homework solutions
+
+%Comment out this line to hid "Solution: ..." boxes.
+\printanswers
+
+\begin{document}
+    \begin{enumerate}
+        \item Use the definition of sequence convergence to prove that  $$\lim_{n\to\infty} \frac{3n+4}{5n-1} = \frac{3}{5}$$
+            \begin{solution}
+                Fix $\varepsilon$ > 0. Let $N = \frac{23}{25\varepsilon} + \frac{1}{5}$. If $n > N$ then we have 
+                $$
+                \left|\frac{3n+4}{5n-1} - \frac{3}{5}\right| = \left|\frac{23}{5(5n-1)}\right| = \frac{23}{5(5n-1)} < \frac{23}{5(5N-1)} = \frac{23}{5(5\left(\frac{23}{25\varepsilon} + \frac{1}{5}\right) -1)} = \varepsilon
+                $$ 
+            Thus for any $\varepsilon$ greater than 0 we have exhibited an $N \in \R$ such that if $n > N$ then $\left|\frac{3n+4}{5n-1} - \frac{3}{5}\right| < \varepsilon$. Hence by definition of sequence convergence $\lim_{n\to\infty} \frac{3n+4}{5n-1} = \frac{3}{5} \hspace*{0em plus 1fill} \qed$
+            \end{solution}
+        \item Prove that if $(a_n)$ converges to $a$ and $k$ is a real number, then the sequence $(ka_n)$ converges to $ka$.
+            \begin{solution}
+                Assume that $(a_n)$ converges to $a$ and $k \in \R$. If $k = 0$ then $ka_n = 0$ for all $n$ and as proved in the previous HW constant sequences converge to the constant thus $(ka_n)$ converges to $0$ in this case. Since $(a_n)$ converges to $a$ we know for all $\varepsilon > 0$ there exists $N \in \R$ such that for $n > N$ and $k \neq 0$, $|a_n - a| < \frac{\varepsilon}{|k|}$.
+                $\vspace{0.5cm}$
+
+                Fix $\varepsilon > 0$, then for $|k| \neq 0$ and $n > N$ we have 
+                $$|(ka_n) - (ka)| = |k(a_n - a)| = |k||a_n - a| < |k|\frac{\varepsilon}{|k|} = \varepsilon$$
+                We have shown for any $\varepsilon > 0$ there exists an $N \in R$ so that if $n > N$ then $|(ka_n) - (ka)| < \varepsilon$ hence $(ka_n)$ converges to $ka$. $\hspace*{0em plus 1fill}$ $\qed$
+            \end{solution}
+
+        \item Prove that $\lim_{n \to \infty} \frac{2n+1}{n^2} = 0$.
+            \begin{solution}
+                $$
+                \lim_{n \to \infty} \frac{2n+1}{n^2} = \lim_{n \to \infty} \frac{2}{n} + \frac{1}{n^2} = \lim_{n \to \infty} \frac{2}{n} + \lim_{n \to \infty} \frac{1}{n^2}
+                $$
+                where the last equality is by the properties of sequences proved in Worksheet 1.2. We proved in class that $\lim_{n \to \infty} \frac{1}{n^2} = 0$ and that $\lim_{n \to \infty} \frac{1}{n} = 0$. By using the result proven in problem 2 $$\lim_{n \to \infty} \frac{2}{n} = \lim_{n \to \infty} 2 \cdot \frac{1}{n} = 2 \cdot 0 = 0$$ 
+                Combining the results we get 
+                $$ 
+                \lim_{n \to \infty} \frac{2n+1}{n^2} = \lim_{n \to \infty} \frac{2}{n} + \lim_{n \to \infty} \frac{1}{n^2} = 0 + 0 = 0 \hspace*{0em plus 1fill} \qed
+                $$
+
+            \end{solution}
+
+        \item Prove that $\lim_{n \to \infty} \frac{1}{n^p} = 0$ if $p > 0$.
+            \begin{solution}
+                Fix $\varepsilon > 0$. Let $N = \frac{1}{\sqrt[p]{\varepsilon}}$. If $n > N$ then we have 
+                $$
+                \left|\frac{1}{n^p} - 0 \right| = \frac{1}{n^p} < \frac{1}{N^p} = 
+                \frac{1}{\left(\frac{1}{\sqrt[p]{\varepsilon}}\right)^p} = \frac{1}{\frac{1}{\varepsilon}} = \varepsilon
+                $$
+                Thus for any $\varepsilon > 0$ we have exhibited an $N \in \R$ such that if $n > N$ then $\left|\frac{1}{n^p} - 0 \right| < \varepsilon$. Thus if $p > 0$ the sequence $\left(\frac{1}{n^p}\right)$  converges to 0 $\hspace*{0em plus 1fill} \qed$
+
+            \end{solution}
+
+    \end{enumerate}
+
+\end{document}
+

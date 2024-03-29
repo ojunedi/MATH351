@@ -1,0 +1,112 @@
+\documentclass[11pt]{exam}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsfonts, amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{array}
+
+\usepackage{fullpage} % margin formatting
+\usepackage{enumitem} % configure enumerate and itemize
+\usepackage{amsmath, amsfonts, amssymb} % math symbols
+\usepackage{xcolor, colortbl} % colors, including in tables
+\usepackage{makecell} % thicker \Xhline in table
+\usepackage{graphicx} % images, resizing
+\usepackage[T1]{fontenc}
+% sometimes needed packages
+% \usepackage{hyperref} % hyperlinks
+% \usepackage{logicproof} % natural deduction
+\usepackage{tikz} % drawing graphs
+\usepackage{algpseudocode} % pseudocode
+
+% paragraph formatting
+\setlength{\parskip}{6pt}
+\setlength{\parindent}{0cm}
+
+% newline after Solution:
+\renewcommand{\solutiontitle}{\noindent\textbf{Solution:}\par\noindent}
+
+% less space before itemize/enumerate
+\setlist{topsep=0pt}
+
+% creates \filcl to grey out cells for groupwork grading
+\newcommand{\filcl}{\cellcolor{gray!25}}
+
+
+% creates \probnum to get the problem number
+\newcounter{probnumcount}
+\setcounter{probnumcount}{1}
+\newcommand{\probnum}{\arabic{probnumcount}. \addtocounter{probnumcount}{1}}
+
+% use roman numerals by default
+% \setlist[enumerate]{label={(\roman*)}}
+
+% creates custom list environments for grading guidelines, question parts
+\newlist{guidelines}{itemize}{1}
+\setlist[guidelines]{label={}, left=0pt .. \parindent, nosep}
+\newlist{gwguidelines}{enumerate}{1}
+\setlist[gwguidelines]{label={(\roman*)}, nosep}
+\newlist{qparts}{enumerate}{2}
+\setlist[qparts]{label={(\alph*)}}
+\newlist{qsubparts}{enumerate}{2}
+\setlist[qsubparts]{label={(\roman*)}}
+\newlist{stmts}{enumerate}{1}
+\setlist[stmts]{label={(\roman*)}, nosep}
+
+
+
+% in order to compile this file you need to get 'header.tex' from
+% Canvas and change the line below to the appropriate file path
+\input{"/Users/omerjunedi/Documents/math351/individual_hw/header.tex"}
+
+% TODO: always change
+\newcommand{\hwnum}{4}
+\newcommand{\duedate}{Jan 31}
+\usepackage{xcolor}
+
+\hwheader  % header for homework
+% \hwslnheader   % header for homework solutions
+
+%Comment out this line to hid "Solution: ..." boxes.
+\printanswers
+
+\begin{document}
+    \begin{enumerate}
+        \item Prove that if $(t_n)$ is a bounded sequence and $(s_n)$ converges to 0, then $(s_nt_n)$ converges to 0.
+            \begin{solution}
+                $(t_n)$ is bounded thus there exists some $R \geq 0$ such that $|t_n| \leq R$ for all $n$. \\
+                $(s_n) \rightarrow 0$ thus for every $\e > 0$ there exists some $N_s \in \R$ such that for all $n > N$ we have $|s_n| < \e / R + 1$. We want to show that $(s_nt_n)$ converges to 0. Fix some $\e > 0$, then for $n > N_s$ 
+                $$|(s_nt_n) - 0| = |s_n||t_n| < \frac{\e}{R+1} \cdot R < \e$$
+                For any $\e > 0$ we have shown an $N \in \R$ such that for $n > N$ we have $|s_nt_n| < \e$, thus by definition of convergence $(s_nt_n)$ converges to 0. 
+            \end{solution}
+        \item Prove that if $(x_n)$ converges to $x \neq 0$ and $x_n$ is non-zero for all $n$, then $\left(\frac{1}{x_n}\right)$ converges to $\frac{1}{x}$.
+            \begin{solution}
+                $(x_n) \rightarrow 0$ thus for every $\e > 0$ there exists some $N \in \R$ such that for all $n > N$ we have $|x_n| < \e$. Fix some $\e > 0$. We want to show that $\left(\frac{1}{x_n}\right)$ converges to $\frac{1}{x}$, for $n > N$ we have 
+                $$\left|\frac{1}{x_n} - \frac{1}{x}\right| = \frac{|x_n-x|}{|x_nx|} < \frac{\e}{|x_nx|} < \e$$
+                where the last inequality holds becuase $x \neq 0$ and $x_n \neq 0$ $\forall n$, thus $|x_nx| > 0$. We have shown for every $\e > 0 $ there exists a $N \in \R$ such that for all $n > N$ we have that $\left|\frac{1}{x_n} - \frac{1}{x}\right| < \e$. Thus $\left(\frac{1}{x_n}\right)$ converges to $\frac{1}{x}$.
+            \end{solution}
+        \item Prove that if $(x_n)$ converges to 0 and $x_n > 0$ for all $n$, then $\frac{1}{x_n}$ diverges to infinity.
+            \begin{solution}
+             We want to show that $\forall M \in \R$ there exists some $N \in \R$ such that for all $n > N$ we have that $x_n > M$. $(x_n)$ converges to 0 thus for every $\e > 0$ there exists some $N \in \R$ such that for all $n > N$ we have 
+             $$|x_n| < \e \Longrightarrow -\e < x_n < \e$$
+             If we let $\e = \frac{1}{M}$ for some $M > 0$ then we get that 
+             $$x_n < \frac{1}{M} \Longrightarrow \frac{1}{x_n} > M$$
+             Since $\e$ is arbitrary this holds for all $M > 0$. Now if $M \leq 0$ then $\frac{1}{x_n} > M$ for all $n$ because $x_n > 0$ for all $n$. Thus we have shown for all $M \in \R$ there is some $N \in \R$ such that for $ n> N$, we get that $\frac{1}{x_n} > M$, thus $\left(\frac{1}{x_n}\right)$ diverges to infinity.
+            \end{solution}
+            \break
+        \item Prove that if $(a_n)$ is bounded and $\lim_{n \to \infty} b_n = +\infty$, then $\lim_{n \to \infty} (a_n + b_n) = +\infty$.
+            \begin{solution}
+                Assume that $(a_n)$ is bounded then there exists some $R \geq 0$ such that $|a_n| \leq R$ for all $n$ and $\lim_{n \to \infty} b_n = +\infty$ then for all $M \in \R$ there exists some $N \in \R$ such that if $n > N$ then $b_n > M$. Since $a_n$ is bounded by $R$ we have  
+                \begin{align*}
+                    a_n &\geq -R \\
+                    a_n + b_n &\geq -R + b_n
+                \end{align*}
+                then if $n > N$ we have that 
+                $$a_n + b_n \geq -R + b_n > -R + M$$
+                hence we arrive at 
+                $$a_n + b_n > M - R$$
+                for all $M \in \R$. Because $R$ is a fixed value and $M$ can take on any value we have that $a_n + b_n > k$ for all $k \in \R$ (we just let $M = R + k$). Thus by definition of converging to infinity, $\lim_{n \to \infty} (a_n + b_n) = +\infty$
+
+            \end{solution}
+    \end{enumerate}
+\end{document}

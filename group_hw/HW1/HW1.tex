@@ -1,0 +1,122 @@
+\documentclass[11pt]{exam}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsfonts, amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{array}
+
+\usepackage{fullpage} % margin formatting
+\usepackage{enumitem} % configure enumerate and itemize
+\usepackage{amsmath, amsfonts, amssymb} % math symbols
+\usepackage{xcolor, colortbl} % colors, including in tables
+\usepackage{makecell} % thicker \Xhline in table
+\usepackage{graphicx} % images, resizing
+\usepackage[T1]{fontenc}
+% sometimes needed packages
+% \usepackage{hyperref} % hyperlinks
+% \usepackage{logicproof} % natural deduction
+\usepackage{tikz} % drawing graphs
+\usepackage{algpseudocode} % pseudocode
+
+% paragraph formatting
+\setlength{\parskip}{6pt}
+\setlength{\parindent}{0cm}
+
+% newline after Solution:
+\renewcommand{\solutiontitle}{\noindent\textbf{Solution:}\par\noindent}
+
+% less space before itemize/enumerate
+\setlist{topsep=0pt}
+
+% creates \filcl to grey out cells for groupwork grading
+\newcommand{\filcl}{\cellcolor{gray!25}}
+
+
+% creates \probnum to get the problem number
+\newcounter{probnumcount}
+\setcounter{probnumcount}{1}
+\newcommand{\probnum}{\arabic{probnumcount}. \addtocounter{probnumcount}{1}}
+
+% use roman numerals by default
+% \setlist[enumerate]{label={(\roman*)}}
+
+% creates custom list environments for grading guidelines, question parts
+\newlist{guidelines}{itemize}{1}
+\setlist[guidelines]{label={}, left=0pt .. \parindent, nosep}
+\newlist{gwguidelines}{enumerate}{1}
+\setlist[gwguidelines]{label={(\roman*)}, nosep}
+\newlist{qparts}{enumerate}{2}
+\setlist[qparts]{label={(\alph*)}}
+\newlist{qsubparts}{enumerate}{2}
+\setlist[qsubparts]{label={(\roman*)}}
+\newlist{stmts}{enumerate}{1}
+\setlist[stmts]{label={(\roman*)}, nosep}
+
+
+
+% in order to compile this file you need to get 'header.tex' from
+% Canvas and change the line below to the appropriate file path
+\input{"/Users/omerjunedi/Documents/math351/group_hw/header.tex"}
+
+% TODO: always change
+\newcommand{\hwnum}{1}
+\newcommand{\duedate}{Jan 29}
+\usepackage{xcolor}
+
+\hwheader  % header for homework
+%\hwslnheader   % header for homework solutions
+
+%Comment out this line to hid "Solution: ..." boxes.
+\printanswers
+
+\begin{document}
+    \begin{enumerate}
+        \item Prove that the sequence $(-1)^n$ does not converge.
+            \begin{solution}
+                Seeking contradiction assume that $(-1)^n$ converges to some number $a$ $$\lim_{n \to \infty} (-1)^n = a$$
+
+                Fix $\e = 1/2$ then by definition of convergence there is some $N \in \R$ such that for all $n  > N$  $$\left|(-1)^n - a\right| < 1/2$$
+                \underline{For odd $n > N$}
+                \begin{align*}
+                    \left|-1 - a\right| < 1/2 \\
+                    -1/2 < -1 - a < 1/2 \\
+                    1/2 < -a < 3/2 \\
+                    -3/2 < a < -1/2
+                \end{align*}
+                \underline{For even $n > N$}
+                \begin{align*}
+                    \left|1 - a\right| < 1/2 \\
+                    -1/2 < 1 - a < 1/2 \\
+                    -3/2 < -a < -1/2 \\
+                    1/2 < a < 3/2
+                \end{align*}
+            We have shown $a \in (-3/2, 1/2)$ and that $a \in (1/2, 3/2)$ which is a contradiction. Thus $(-1)^n$ does not converge.
+            \end{solution}
+        \item Prove that every Cauchy sequence is bounded.
+            \begin{solution}
+                Assume that $(x_n)$ is a Cauchy sequence then for every $\e > 0$ there exists some $N \in \R$ such that for all $n, m > N$ we have $|x_n - x_m| < \e$. Note that $|x_n| = |x_n - x_m + x_m| \leq |x_n - x_m| + |x_m|$. Fix $\e = 1$, combining this with the Cauchy criterion we get that for $n, m > N$
+                $$|x_n| \leq |x_n - x_m| + |x_m| < |x_m| + 1$$
+                Let $m = N + 1$ then we get that 
+                $$|x_n| < |x_{N+1}| + 1$$
+                this is true for all $n > N$. This bounds all the terms past the Nth term. For all terms before the Nth terms we can bound it by the maximum of the terms thus for $n \leq N$
+                $$ |x_n| \leq \text{max}\{|x_1|, |x_2|, \cdots , |x_N|\}$$
+                Thus to bound all terms we can choose the maximum of $|x_{N+1}| + 1$ and $\text{max}\{|x_1|, |x_2|, \cdots , |x_N|\}$. Let $R = \text{max}\{|x_1|, |x_2|, \cdots , |x_N|, 1 + |x_{N+1}|\}$. Then $|x_n| \leq R$ for all $n \in \N$ and thus $(x_n)$ is bounded. 
+            \end{solution}
+        \item Prove that if $(x_n)$ and $(y_n)$ are convergent sequenecs, $\lim_{n \to \infty} x_n = x$ and $\lim_{n \to \infty} y_n = y$ and $x_n \leq y_n$ for all $n \in \N$, then $x \leq y$
+            \begin{solution}
+                We have that $y_n - x_n \geq 0$ and by limit laws we have that $(y_n - x_n)$ converges to $y-x$. If we can show that $y - x \geq 0$ then we have the desired result. By problem 10 on the worksheet we showed that if $(s_n)$ is a convergent sequence and $s_n \geq 0$ for all but finitely many values of $n$, then $\lim_{n \to \infty} s_n \geq 0$. Applying this result to $(y_n - x_n)$ we get that $y - x \geq 0$ and thus $x \leq y$. 
+            \end{solution}
+        \item Suppose that $(a_n), (b_n)\text { and } (s_n)$ are three sequenecs and that
+        $$a_n \leq s_n \leq b_n$$
+        for all $n \in \N$. Prove that if $(a_n)$ and $(b_n)$ both converge to $s$, then $(s_n)$ also converges to $s$. 
+            \begin{solution}
+                Fix $\e > 0$. $(a_n)$ converges to $s$ thus there exists $N_1 \in \R$ such that 
+                $|a_n - s| < \e$ likewise $(b_n)$ converges to $s$ thus there there exists $N_2 \in \R$ such that $|b_n - s| < \e$. Let $N = \text{max}\{N_1, N_2\}$ then  by combining $a_n \leq s_n \leq b_n$ and $a_n$ converging to $s$ $$-\e < a_n - s < \e$$ and that $b_n$ converges to $s$ 
+                $$-\e < b_n - s < \e$$ we have that for $n > N$
+                $$s_n -s \leq b_n -s < \e$$ and 
+                $$-\e < a_n -s \leq s_n -s$$ 
+                thus $|s_n - s| < \e$. Thus for all $\e > 0$ we have shown an $N \in \R$ such that if $n > N$ then $|s_n - s| < \e$, thus $(s_n)$ converges to $s$.
+            \end{solution}
+    \end{enumerate}
+\end{document}

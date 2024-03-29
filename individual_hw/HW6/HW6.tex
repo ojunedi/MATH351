@@ -1,0 +1,112 @@
+\documentclass[11pt]{exam}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsfonts, amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{array}
+
+\usepackage{fullpage} % margin formatting
+\usepackage{enumitem} % configure enumerate and itemize
+\usepackage{amsmath, amsfonts, amssymb} % math symbols
+\usepackage{xcolor, colortbl} % colors, including in tables
+\usepackage{makecell} % thicker \Xhline in table
+\usepackage{graphicx} % images, resizing
+\usepackage[T1]{fontenc}
+% sometimes needed packages
+% \usepackage{hyperref} % hyperlinks
+% \usepackage{logicproof} % natural deduction
+\usepackage{tikz} % drawing graphs
+\usepackage{algpseudocode} % pseudocode
+
+% paragraph formatting
+\setlength{\parskip}{6pt}
+\setlength{\parindent}{0cm}
+
+% newline after Solution:
+\renewcommand{\solutiontitle}{\noindent\textbf{Solution:}\par\noindent}
+
+% less space before itemize/enumerate
+\setlist{topsep=0pt}
+
+% creates \filcl to grey out cells for groupwork grading
+\newcommand{\filcl}{\cellcolor{gray!25}}
+
+
+% creates \probnum to get the problem number
+\newcounter{probnumcount}
+\setcounter{probnumcount}{1}
+\newcommand{\probnum}{\arabic{probnumcount}. \addtocounter{probnumcount}{1}}
+
+% use roman numerals by default
+% \setlist[enumerate]{label={(\roman*)}}
+
+% creates custom list environments for grading guidelines, question parts
+\newlist{guidelines}{itemize}{1}
+\setlist[guidelines]{label={}, left=0pt .. \parindent, nosep}
+\newlist{gwguidelines}{enumerate}{1}
+\setlist[gwguidelines]{label={(\roman*)}, nosep}
+\newlist{qparts}{enumerate}{2}
+\setlist[qparts]{label={(\alph*)}}
+\newlist{qsubparts}{enumerate}{2}
+\setlist[qsubparts]{label={(\roman*)}}
+\newlist{stmts}{enumerate}{1}
+\setlist[stmts]{label={(\roman*)}, nosep}
+
+
+
+% in order to compile this file you need to get 'header.tex' from
+% Canvas and change the line below to the appropriate file path
+\input{"/Users/omerjunedi/Documents/math351/individual_hw/header.tex"}
+
+% TODO: always change
+\newcommand{\hwnum}{2/14}
+\newcommand{\duedate}{Feb 5}
+\usepackage{xcolor}
+
+\hwheader  % header for homework
+% \hwslnheader   % header for homework solutions
+
+%Comment out this line to hid "Solution: ..." boxes.
+\printanswers
+
+\begin{document}
+
+    \begin{enumerate}
+        \item Prove that every sequence has a monotone subsequence
+        \begin{solution}
+            Let $(x_n)$ be a sequence \\
+            \textbf{\textit{Case 1: Infinitely many dominant terms}} \\
+            Let $(x_{n_k})$ be a subsequence of all dominant terms, which we can construct because 
+            there are infinitely many of them. Pick some arbitrary point $n_k$ in the subsequence
+            then we know that $x_{n_{k+1}} < x_{n_k}$ since $x_{n_k}$ is a dominant term. Thus for all 
+            $x_{n_{k+1}} < x_{n_k}$ for all $n_k$ and $(x_{n_k})$ is monotone decreasing by definition. \\
+            \textbf{\textit{Case 2: Finitely many dominant terms}} \\
+            Since there are finitely many terms, there is a last dominant term. Let $x_N$ be the last dominant term, 
+            then let $x_{N+1} = x_{n_1}$ the first terms of the subsequence. We know that $x_{N+1}$ is not a dominant 
+            term since $x_N$ was the last dominant term. Thus there exists some $n_2 > n_1$ such that $a_{n_2} > a_{n_1}$.
+            Likewise there exists some $n_3 > n_2$ such that $a_{n_3} > a_{n_2}$. Continuing this process we can construct
+            an increasing subsequence, hence $x_{n_k}$ is a monotone increasing subsequence. \\
+            In either case there is a monotone subsequence, thus all sequences have a monotone subsequence.
+        \end{solution}    
+        \item Let $k \in \R$             
+            \begin{enumerate}
+                \item Prove that the function $f(x) = kx$ is continious at $x=5$
+                \item Prove that the function $f(x) = kx$ is continious
+            \end{enumerate}
+        \begin{solution}
+            \begin{enumerate}
+                \item Let $(x_n)$ be a convergent sequence such that $\{x_n | n \in \N\} \subseteq \R$ and that 
+                converges to $5$. Then 
+                $$\lim_{n \to \infty} f(x_n) = \lim_{n \to \infty} k \cdot x_n = k \lim_{n \to \infty} x_n = 5k = f(5)$$
+                Thus by definition $f(x) = kx$ is continious at $x = 5$
+                \item Let $(x_n)$ be a convergent sequence such that $\{x_n | n \in \N\} \subseteq \R$ and that 
+                converges to $x$. Then
+                $$\lim_{n \to \infty} f(x_n) = \lim_{n \to \infty} k \cdot x_n = k \lim_{n \to \infty} x_n = kx = f(x)$$
+                Thus by definition $f(x) = kx$ is continious.
+            \end{enumerate}
+        \end{solution}
+        
+    \end{enumerate}
+
+\end{document}

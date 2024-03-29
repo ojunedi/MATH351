@@ -1,0 +1,135 @@
+\documentclass[11pt]{exam}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsfonts, amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{array}
+
+\usepackage{fullpage} % margin formatting
+\usepackage{enumitem} % configure enumerate and itemize
+\usepackage{amsmath, amsfonts, amssymb} % math symbols
+\usepackage{xcolor, colortbl} % colors, including in tables
+\usepackage{makecell} % thicker \Xhline in table
+\usepackage{graphicx} % images, resizing
+\usepackage[T1]{fontenc}
+% sometimes needed packages
+% \usepackage{hyperref} % hyperlinks
+% \usepackage{logicproof} % natural deduction
+\usepackage{tikz} % drawing graphs
+\usepackage{algpseudocode} % pseudocode
+
+% paragraph formatting
+\setlength{\parskip}{6pt}
+\setlength{\parindent}{0cm}
+
+% newline after Solution:
+\renewcommand{\solutiontitle}{\noindent\textbf{Solution:}\par\noindent}
+
+% less space before itemize/enumerate
+\setlist{topsep=0pt}
+
+% creates \filcl to grey out cells for groupwork grading
+\newcommand{\filcl}{\cellcolor{gray!25}}
+
+
+% creates \probnum to get the problem number
+\newcounter{probnumcount}
+\setcounter{probnumcount}{1}
+\newcommand{\probnum}{\arabic{probnumcount}. \addtocounter{probnumcount}{1}}
+
+% use roman numerals by default
+% \setlist[enumerate]{label={(\roman*)}}
+
+% creates custom list environments for grading guidelines, question parts
+\newlist{guidelines}{itemize}{1}
+\setlist[guidelines]{label={}, left=0pt .. \parindent, nosep}
+\newlist{gwguidelines}{enumerate}{1}
+\setlist[gwguidelines]{label={(\roman*)}, nosep}
+\newlist{qparts}{enumerate}{2}
+\setlist[qparts]{label={(\alph*)}}
+\newlist{qsubparts}{enumerate}{2}
+\setlist[qsubparts]{label={(\roman*)}}
+\newlist{stmts}{enumerate}{1}
+\setlist[stmts]{label={(\roman*)}, nosep}
+
+
+
+% in order to compile this file you need to get 'header.tex' from
+% Canvas and change the line below to the appropriate file path
+\input{"/Users/omerjunedi/Documents/math351/individual_hw/header.tex"}
+
+%TODO: change
+\newcommand{\hwnum}{3}
+\newcommand{\duedate}{Jan 24}
+\usepackage{xcolor}
+
+
+\hwheader  % header for homework
+%\hwslnheader   % header for homework solutions
+
+%Comment out this line to hid "Solution: ..." boxes.
+\printanswers
+
+\begin{document}
+    \begin{enumerate}
+        \item Prove that the sequence $(\sin(\frac{n\pi}{3}))$ does not converge
+            \begin{solution}
+                skip
+            \end{solution}
+
+        \item Prove that if $(a_n)$ and $(b_n)$ are two convergent sequences such that $\lim_{n \to \infty} a_n = a$ and $\lim_{n \to \infty} b_n = b$, then $(a_nb_n)$ converges to $ab$. (This is the Multiplication Limit Law for
+        sequences.)
+            \begin{solution}
+                To prove the Multiplication Limit Law for
+                sequences, I will first prove that convergent sequences are bounded. 
+                \begin{proof}
+                    Assume that $(a_n)$ is a converges to $a$. By the definition of convergence (with $\varepsilon = 1$) there is some $N$ where 
+                    $$|a_n - a| < 1$$
+                    for all $n > N$. That is, $a-1 < a_n < a + 1$ for all $n > N$. Let 
+                    $$ U = \text{max}\{a_1, a_2, \ldots , a_N, a + 1\}$$ and 
+                    $$ L = \text{min}\{a_1, a_2, \ldots , a_N, a - 1\}$$
+
+                    Note that if $n \leq N$, then $L \leq a_n \leq U$, since each $a_n$ is included in the sets we are taking the minimum and maximum of. And if $n > N$, then we already have shown that $a-1 < a_n < a + 1$, which implies that 
+                    $$L \leq a - 1 < a_n < a + 1 \leq U$$
+                    and hence we have that 
+                    $$L \leq a_n \leq U$$
+                    for all n. And thus by definition, $(a_n)$ is bounded. 
+                \end{proof}
+                Fix $\varepsilon > 0$. Since $(a_n)$ converges we know by above that it is bounded, and by the \textbf{Conseqeunce of Class Exercise} from worksheet 1.4 we know there exists some $R \geq 0$ such that $|b_n| \leq R$ for all $n \in \N$. Let $\varepsilon_1 = \frac{\varepsilon}{2|b| + 1}$ and $\varepsilon_2 = \frac{\varepsilon}{2R + 1}$. Since $\varepsilon_1 > 0$ we know there exists some $N_1$ such that $|a_n - a| < \varepsilon_1$. Likewise, since $\varepsilon_2 > 0$ we know there exists $N_2$ such that $|b_n - b| < \varepsilon_2$. Let $N = \text{max}\{N_1, N_2\}$. Then for any $n > N$, 
+                \begin{align*}
+                    |a_nb_n - ab| &=     |a_nb_n - a_nb + a_nb - ab| \\
+                                  &=     |a_n(b_n - b) + b(a_n - a)| \\
+                                  &\leq  |a_n(b_n -b)| + |b(a_n - a)| \\
+                                  &=     |a_n| \cdot |b_n - b| + |b| \cdot |a_n - a| \\
+                                  &<     |a_n| \cdot \varepsilon_2 + |b| \cdot \varepsilon_1 \\
+                                  &=     |a_n| \cdot \frac{\varepsilon}{2R + 1} + |b| \cdot \frac{\varepsilon}{2|b| + 1} \\ 
+                                  &<     \frac{\varepsilon}{2} + \frac{\varepsilon}{2} \\
+                                  &=     \varepsilon
+                \end{align*}
+                That is, for $n > N$ we have $|a_nb_n - ab| < \varepsilon$. Therefore $(a_nb_n)$ converges to $ab$. $\hspace*{0em plus 1fill} \qed$
+            \end{solution}
+        
+        \item Prove that every convergent sequence is Cauchy.
+        \begin{solution}
+            Asssume that $(x_n)$ converges to $x$. Fix $\e > 0$. Notice that $\e/2 > 0$, there exists some $N \in \R$ such that for every $n > N$ we have 
+            $$|x_n - x | < \e / 2$$
+            Then, for any $n$, $m$ > $N$, 
+            \begin{align*}
+                |x_n - x_m| &= |x_n - a + a - x_m| \\
+                            &\leq |x_n - a| + |x_m - a| \\
+                            &< \e/2 + \e/2 \\
+                            &= \e
+            \end{align*}
+            That is, for all $\e > 0$ there exists an $N \in \R$ such that for any $n, m > N$ we have $|x_n - x_m| < \e$, thus $(x_n)$ is Cauchy. $\hspace*{0em plus 1fill} \qed$
+        \end{solution}
+    \end{enumerate}
+\end{document}
+
+
+
+% Prove that if (an) and (bn) are two convergent sequences such that lim
+% n→∞ an = a and
+% lim
+% n→∞ bn = b, then (anbn) converges to ab. (This is the Multiplication Limit Law for
+% sequences.
