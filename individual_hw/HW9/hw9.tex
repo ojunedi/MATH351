@@ -1,0 +1,154 @@
+\documentclass[11pt]{exam}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsfonts, amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{array}
+
+\usepackage{fullpage} % margin formatting
+\usepackage{enumitem} % configure enumerate and itemize
+\usepackage{amsmath, amsfonts, amssymb} % math symbols
+\usepackage{xcolor, colortbl} % colors, including in tables
+\usepackage{makecell} % thicker \Xhline in table
+\usepackage{graphicx} % images, resizing
+\usepackage[T1]{fontenc}
+% sometimes needed packages
+% \usepackage{hyperref} % hyperlinks
+% \usepackage{logicproof} % natural deduction
+\usepackage{tikz} % drawing graphs
+\usepackage{algpseudocode} % pseudocode
+
+% paragraph formatting
+\setlength{\parskip}{6pt}
+\setlength{\parindent}{0cm}
+
+% newline after Solution:
+\renewcommand{\solutiontitle}{\noindent\textbf{Solution:}\par\noindent}
+
+% less space before itemize/enumerate
+\setlist{topsep=0pt}
+
+% creates \filcl to grey out cells for groupwork grading
+\newcommand{\filcl}{\cellcolor{gray!25}}
+
+
+% creates \probnum to get the problem number
+\newcounter{probnumcount}
+\setcounter{probnumcount}{1}
+\newcommand{\probnum}{\arabic{probnumcount}. \addtocounter{probnumcount}{1}}
+
+% use roman numerals by default
+% \setlist[enumerate]{label={(\roman*)}}
+
+% creates custom list environments for grading guidelines, question parts
+\newlist{guidelines}{itemize}{1}
+\setlist[guidelines]{label={}, left=0pt .. \parindent, nosep}
+\newlist{gwguidelines}{enumerate}{1}
+\setlist[gwguidelines]{label={(\roman*)}, nosep}
+\newlist{qparts}{enumerate}{2}
+\setlist[qparts]{label={(\alph*)}}
+\newlist{qsubparts}{enumerate}{2}
+\setlist[qsubparts]{label={(\roman*)}}
+\newlist{stmts}{enumerate}{1}
+\setlist[stmts]{label={(\roman*)}, nosep}
+
+
+
+% in order to compile this file you need to get 'header.tex' from
+% Canvas and change the line below to the appropriate file path
+\input{"/Users/omerjunedi/Documents/math351/individual_hw/header.tex"}
+
+% TODO: always change
+\newcommand{\hwnum}{4/3}
+\newcommand{\duedate}{April 3}
+\usepackage{xcolor}
+
+\hwheader  % header for homework
+%\hwslnheader   % header for homework solutions
+
+%Comment out this line to hid "Solution: ..." boxes.
+\printanswers
+
+
+
+
+
+\begin{document}
+
+
+
+    \begin{enumerate}
+        
+
+        \item 
+        \begin{enumerate}
+            \item Prove that a constant function $f(x) = c$ for some $c\in\R$ is differentiable at all $a \in \R$
+            and $f'(a) = 0$
+            \item Prove that a linear function \(f(x) = mx + b\), where \(m, b \in \mathbb{R}\), is differentiable at all \(a \in \mathbb{R}\) and \(f'(a) = m\).
+        \end{enumerate}
+            \begin{solution}
+                \begin{enumerate}
+                    \item Fix some $a \in \R$. Let $(x_n)$ be a sequence in $\R \setminus \{a\}$ such that $\lnti x_n = a$, then 
+                    $$f'(a) = \lnti \frac{f(x_n) - f(a)}{x_n - a} = \lnti \frac{c - c}{x_n - x} = 0$$
+                    The limit exists, thus $f$ is differentiable for all $a \in \R$ with $f'(a) = 0$
+                    \item Let $a \in \R$.  Let $(x_n)$ be a sequence in $\R \setminus \{a\}$ such that $\lnti x_n = a$, then 
+                    $$f'(a) = \lnti \frac{f(x_n) - f(a)}{x_n - a} = \lnti \frac{mx_n + b - (ma + b)}{x_n - a} = \lnti \frac{m(x_n-a)}{x_n -a} = m$$
+                    The limit exists, thus $f$ is differentiable for all $a \in \R$ with $f'(a) = m$
+                \end{enumerate}
+            \end{solution}
+
+        \item Suppose \(g: D \rightarrow \mathbb{R}\) is differentiable at \(a\) and that \(g(a) \neq 0\). Prove that the function \( \frac{1}{g}(x) = \frac{1}{g(x)} \) is differentiable at \(a\) and that 
+        \[
+        \left( \frac{1}{g} \right)'(a) = -\frac{g'(a)}{g^2(a)}.
+        \]
+        (Notice that it follows from the fact that \(g\) is continuous at \(a\) with \(g(a) \neq 0\) that \(g\) is non-zero on some open interval about \(a\), so that \(\frac{1}{g}\) is defined on an open interval about \(a\).)
+            \begin{solution}
+                Assume $g: D \to \R$ is differentiable at $a$ with $g(a) \neq 0$. Let $(x_n)$ be a sequence in $D \setminus \{a\}$ such that $\lnti x_n = a$. Then 
+                \begin{align}
+                    \left( \frac{1}{g} \right)'(a) &= \lnti \frac{\frac{1}{g(x_n)} - \frac{1}{g(a)}}{x_n - a} \\ &= \lnti \frac{g(a) - g(x_n)}{g(a)\cdot g(x_n)\cdot(x_n-a)} \\
+                        &= \lnti \frac{g(a) - g(x_n)}{x_n - a} \cdot \lnti \frac{1}{g(a)\cdot g(x_n)} \\
+                        &= -g'(a) \cdot \lnti \frac{1}{g(a)} \cdot \lnti \frac{1}{g(x_n)} \\
+                        &= -g'(a) \cdot \frac{1}{g(a)} \cdot \frac{1}{g(a)} \\
+                        &= -\frac{g'(a)}{g^2(a)}
+                \end{align}
+                Note since $g$ is differentiable at $a$, it is continuous at $a$. Thus $\lnti g(x_n) = g(a)$ and 
+                it follows from there that $\lnti \frac{1}{g(x_n)} = \frac{1}{g(a)}$
+            \end{solution}
+        \item Suppose \(f: \mathbb{R} \rightarrow \mathbb{R}\) is defined as \(f(x) = x^2\) for \(x \geq 0\) and \(f(x) = x\) for \(x < 0\). Prove that \(f\) is not differentiable at \(0\).
+            \begin{solution}
+                To show a function is not differentiable a point $a$ we need to show the limit for the definitino 
+                of the derivative does not exist. We can do this by showing  two sequences that converge to $a$ 
+                such that their limits under the defintion of the derivative are not equal. Let $x_n = 1/n$ and 
+                let $y_n = -1/n$ for all $n$. We proved in class both of these sequnces converge to 0. Note 
+                that $x_n > 0$ for all $n$,
+                $$f'(0) = \lnti \frac{f(x_n) - f(0)}{x_n - 0} = \lnti \frac{\left(\frac{1}{n}\right)^2}{\frac{1}
+                {n}} = \lnti \frac{1}{n} = 0$$ 
+                and note that $y_n < 0$ for all $n$ so,
+                $$f'(0) = \lnti \frac{f(y_n) - f(0)}{y_n - 0} = \lnti \frac{1/n}{1/n} = \lnti 1 = 1$$
+                thus since the limit values do not agree we have shown that the derivative does not exist at $x = 
+                0$. 
+            \end{solution}
+        \item Suppose that \(f: D \rightarrow \mathbb{R}\) and \(g: D \rightarrow \mathbb{R}\) are both uniformly continuous on \(D\). Prove that the function \(f + g: D \rightarrow \mathbb{R}\) is uniformly continuous on \(D\).
+            \begin{solution}
+                Fix $\e > 0$. Since $f$ is uniformly continuous there exists some $\d_f > 0$ 
+                such that  for all $x, y \in D$ if $|x - y| < \d_f$ then $|f(x) - f(y)| < \e/2$. Likewise since $g$ is uniformly 
+                continuous there exists some $\d_g > 0$ such that for all $x, y \in D$ if $|x - y| < \d_g$ then $|g(x) - g(y)| < \e/2$. Let $\d = \min\{\d_f, \d_g\}$ then for all $x, y \in D$ if $|x-y| < \d$ we have that 
+                \begin{align*}
+                    |(f+g)(x) - (f+g)(y)| &= |f(x)-f(y) + g(x) - g(y)| \\
+                                        &\leq |f(x) - f(y)| + |g(x) - g(y)| \\
+                                        &< \e/2 + \e/2 \\
+                                        &= \e
+                \end{align*}
+                We have shown for all $\e > 0$ there exists some $\d > 0$ such that for all $x, y \in D$ if $|x - y| < \d$ then $|f(x) - f(y)| < \e$. Thus $f+g$ is uniformly continuous on $D$.
+            \end{solution}
+
+
+
+
+
+    \end{enumerate}
+
+
+
+\end{document}
