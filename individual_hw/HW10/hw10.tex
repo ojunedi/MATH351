@@ -1,0 +1,115 @@
+\documentclass[11pt]{exam}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsfonts, amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{array}
+
+\usepackage{fullpage} % margin formatting
+\usepackage{enumitem} % configure enumerate and itemize
+\usepackage{amsmath, amsfonts, amssymb} % math symbols
+\usepackage{xcolor, colortbl} % colors, including in tables
+\usepackage{makecell} % thicker \Xhline in table
+\usepackage{graphicx} % images, resizing
+\usepackage[T1]{fontenc}
+% sometimes needed packages
+% \usepackage{hyperref} % hyperlinks
+% \usepackage{logicproof} % natural deduction
+\usepackage{tikz} % drawing graphs
+\usepackage{algpseudocode} % pseudocode
+
+% paragraph formatting
+\setlength{\parskip}{6pt}
+\setlength{\parindent}{0cm}
+
+% newline after Solution:
+\renewcommand{\solutiontitle}{\noindent\textbf{Solution:}\par\noindent}
+
+% less space before itemize/enumerate
+\setlist{topsep=0pt}
+
+% creates \filcl to grey out cells for groupwork grading
+\newcommand{\filcl}{\cellcolor{gray!25}}
+
+
+% creates \probnum to get the problem number
+\newcounter{probnumcount}
+\setcounter{probnumcount}{1}
+\newcommand{\probnum}{\arabic{probnumcount}. \addtocounter{probnumcount}{1}}
+
+% use roman numerals by default
+% \setlist[enumerate]{label={(\roman*)}}
+
+% creates custom list environments for grading guidelines, question parts
+\newlist{guidelines}{itemize}{1}
+\setlist[guidelines]{label={}, left=0pt .. \parindent, nosep}
+\newlist{gwguidelines}{enumerate}{1}
+\setlist[gwguidelines]{label={(\roman*)}, nosep}
+\newlist{qparts}{enumerate}{2}
+\setlist[qparts]{label={(\alph*)}}
+\newlist{qsubparts}{enumerate}{2}
+\setlist[qsubparts]{label={(\roman*)}}
+\newlist{stmts}{enumerate}{1}
+\setlist[stmts]{label={(\roman*)}, nosep}
+
+
+
+% in order to compile this file you need to get 'header.tex' from
+% Canvas and change the line below to the appropriate file path
+\input{"/Users/omerjunedi/Documents/math351/individual_hw/header.tex"}
+
+% TODO: always change
+\newcommand{\hwnum}{4-10}
+\newcommand{\duedate}{April 10}
+\usepackage{xcolor}
+\newcommand{\sntk}{\sum_{k=1}^{n}}
+\hwheader  % header for homework
+%\hwslnheader   % header for homework solutions
+
+%Comment out this line to hid "Solution: ..." boxes.
+\printanswers
+
+
+\begin{document}
+
+    \begin{enumerate}
+        \item (Note: for this problem, you may use the fact that between any two real numbers there exists both a rational number and an irrational number. The former is proved in the ”Additional Reading” section at the end of the course notes. The latter you may use without proof.)
+
+        Define \( f(x) = \begin{cases} 1 & \text{if } x \text{ is irrational} \\ 0 & \text{if } x \text{ is rational} \end{cases} \).
+        
+        For a partition \( P \) of the interval \( [a, b] \), find \( U(f, P) \) and \( L(f, P) \), and then find \( U(f) \) and \( L(f) \). Is \( f \) integrable?
+        
+            \begin{solution}
+                $$U(f,P) = \sntk \sup\{f([t_{k-1}, t_k])\} \cdot (t_k - t_{k-1})$$
+                Per the note there exists an irrational number between $t_{k-1}$ and $t_k$
+                .As $f$ can only take on the values 0 and 1 we can say $\sup\{f([t_{k-1}, t_k])\} = 1$. Thus our upper Darboux Sum becomes 
+                $$U(f,P) = \sntk 1 \cdot (t_k - t_{k-1}) = \sntk (t_1 - a) + (t_2 - t_1) + \ldots + (b - t_{n-1}) = b-a$$
+                notice the sum telescopes to $b-a$. Thus the Upper Darboux Integral is 
+                $$U(f) = \inf\{U(f, P)\} = \inf\{1\} = 1$$
+                On the other hand 
+                $$L(f,P) = \sntk \inf\{f([t_{k-1}, t_k])\} \cdot (t_k - t_{k-1})$$
+                Per the note there exists an rational number between $t_{k-1}$ and $t_k$, and as $f$ can only take on the values 0 and 1 we can say that $\inf\{f([t_{k-1}, t_k])\} = 0$. Thus our lower Darboux Sum becomes 
+                $$L(f,P) = \sntk 0 \cdot (t_k - t_{k-1}) = 0$$
+                So the Lower Darboux Integral is 
+                $$L(f) = \sup\{L(f, P)\} = \sup\{0\} = 0$$
+                We have that $L(f) = 0$ and $U(f) = 1$, thus since the values do not agree $f$ is not integrable.
+            \end{solution}
+            \break
+        \item Prove that if \( f \) is bounded and monotone increasing on \( [a, b] \) and \( [t_{k-1}, t_k] \subset [a, b] \), then
+
+        \[
+        \sup\{f([t_{k-1}, t_k])\} - \inf\{f([t_{k-1}, t_k])\} = f(t_k) - f(t_{k-1}).
+        \]
+            \begin{solution}
+                In order to prove the given statement, I will show $f(t_k) = \sup\{f([t_{k-1}, t_k])\}$ and that $f(t_{k-1}) = \inf\{f([t_{k-1}, t_k])\}$. Let $x \in [t_{k-1}, t_k]$, then since $x \le t_k$ and $f$ is monotone increasing we have that $f(x) \le f(t_k)$. Since $x$ was arbitrary we have shown $f(t_k)$ is an upper bound for $f([t_{k-1}, t_k])$. Now we must show it is the supremum, let $\alpha$ be an upper bound for $f([t_{k-1}, t_k])$. Then by definition of upper bound $f(x) \le \alpha$ for all $x \in [t_{k-1}, t_k]$. Since $t_k \in [t_{k-1}, t_k]$ we have that $f(t_k) \leq \alpha$. Hence $\sup\{f([t_{k-1}, t_k])\}= f(t_k)$. Similarly let $y \in [t_{k-1},t_k]$, thus we know $y \ge t_{k-1}$ and since $f$ is monotone increasing $f(y) \ge f(t_{k-1})$. Thus $f(t_{k-1})$ is a lower bound for the set $f([t_{k-1}, t_k])$. Now we must show that is the infimum. Let $\beta$ be a lower bound for $f([t_{k-1}, t_k])$. Then 
+                $\beta \le f(x)$ for all $x \in [t_{k-1}, t_k]$, by definition of lower bound. Since $t_{k-1} \in [t_{k-1}, t_k]$ we can say $\beta \le f(t_{k-1})$. Thus $\inf\{f([t_{k-1}, t_k])\} = f(t_{k-1})$. Subtracting the supremum and infimum
+                we get 
+                $$ \sup\{f([t_{k-1}, t_k])\} - \inf\{f([t_{k-1}, t_k])\} = f(t_k) - f(t_{k-1})$$
+                as desired. 
+            \end{solution}
+    \end{enumerate}
+
+
+
+\end{document}

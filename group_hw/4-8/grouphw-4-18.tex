@@ -1,0 +1,205 @@
+\documentclass[11pt]{exam}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsfonts, amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{array}
+
+\usepackage{fullpage} % margin formatting
+\usepackage{enumitem} % configure enumerate and itemize
+\usepackage{amsmath, amsfonts, amssymb} % math symbols
+\usepackage{xcolor, colortbl} % colors, including in tables
+\usepackage{makecell} % thicker \Xhline in table
+\usepackage{graphicx} % images, resizing
+\usepackage[T1]{fontenc}
+% sometimes needed packages
+% \usepackage{hyperref} % hyperlinks
+% \usepackage{logicproof} % natural deduction
+\usepackage{tikz} % drawing graphs
+\usepackage{algpseudocode} % pseudocode
+
+% paragraph formatting
+\setlength{\parskip}{6pt}
+\setlength{\parindent}{0cm}
+
+% newline after Solution:
+\renewcommand{\solutiontitle}{\noindent\textbf{Solution:}\par\noindent}
+\newcommand{\sntk}{\sum_{k=1}^{n}}
+
+% less space before itemize/enumerate
+\setlist{topsep=0pt}
+
+% creates \filcl to grey out cells for groupwork grading
+\newcommand{\filcl}{\cellcolor{gray!25}}
+
+
+% creates \probnum to get the problem number
+\newcounter{probnumcount}
+\setcounter{probnumcount}{1}
+\newcommand{\probnum}{\arabic{probnumcount}. \addtocounter{probnumcount}{1}}
+
+% use roman numerals by default
+% \setlist[enumerate]{label={(\roman*)}}
+
+% creates custom list environments for grading guidelines, question parts
+\newlist{guidelines}{itemize}{1}
+\setlist[guidelines]{label={}, left=0pt .. \parindent, nosep}
+\newlist{gwguidelines}{enumerate}{1}
+\setlist[gwguidelines]{label={(\roman*)}, nosep}
+\newlist{qparts}{enumerate}{2}
+\setlist[qparts]{label={(\alph*)}}
+\newlist{qsubparts}{enumerate}{2}
+\setlist[qsubparts]{label={(\roman*)}}
+\newlist{stmts}{enumerate}{1}
+\setlist[stmts]{label={(\roman*)}, nosep}
+
+
+
+% in order to compile this file you need to get 'header.tex' from
+% Canvas and change the line below to the appropriate file path
+\input{"/Users/omerjunedi/Documents/math351/individual_hw/header.tex"}
+
+% TODO: always change
+\newcommand{\hwnum}{2}
+\newcommand{\duedate}{Sept 6}
+\usepackage{xcolor}
+
+\hwheader  % header for homework
+%\hwslnheader   % header for homework solutions
+
+%Comment out this line to hid "Solution: ..." boxes.
+\printanswers
+
+\begin{document}
+
+    \begin{enumerate}
+        \item Suppose that \( f : \mathbb{R} \to \mathbb{R} \) and \( g : \mathbb{R} 
+        \to \mathbb{R} \) are differentiable functions. Suppose also that \( f(0) = g
+        (0) \) and that \( f'(x) \leq g'(x) \) for all \( x \geq 0 \). Prove that \( f(x) \leq g
+        (x) \) for all \( x \geq 0 \).
+            \begin{enumerate}
+                \item Prove that if \( f \) is continuous on \( [a, b] \), \( f \) is 
+                differentiable on \( (a, b) \), and \( f'(x) = 0 \) if \( a < x < b \), then \( 
+                    f \) is constant on \( [a, b] \) (i.e., there exists \( c \in \mathbb{R} \) 
+                    such that \( f(x) = c \) for all \( x \in [a, b] \)).
+                \item Suppose that \( f \) and \( g \) are functions which are both continuous 
+                on \( [a, b] \) and differentiable on \( (a, b) \). Prove that if \( f'(x) = g'
+                (x) \) for all \( x \in (a, b) \), then there exists \( c \in \mathbb{R} \) 
+                such that \( f(x) = g(x) + c \) for all \( x \in (a, b) \).
+            \end{enumerate}
+                \begin{solution}
+                    Let $h(x) := g(x) - f(x)$. Then $h'(x) = g'(x) - f'(x) \geq 0$. Thus $h$ 
+                    is an increasing function (as we proved on the last HW). Then for all $x \geq 0$ we have that 
+                    $$h(x) \geq h(0) = g(0) - f(0) = 0$$
+                    $$g(x) - f(x) \geq 0 \Longrightarrow f(x) \leq g(x)$$ 
+                    \begin{enumerate}
+                        \item Let $x_1, x_2 \in (a,b)$ such that $x_1 \neq x_2$. Then by the Mean Value Theorem there exists some $d \in (x_1, x_2)$ such that 
+                        $$f'(d) = \frac{f(x_2) - f(x_1)}{x_2 - x_1} = 0 \Longrightarrow f(x_2) = f(x_1)$$
+                        We have shown that two arbitrary points in $(a,b)$ are equal thus $f$
+                        is a constant function over (a, b) and there exists \( c \in \mathbb{R} \) 
+                        such that \( f(x) = c \) for all \( x \in (a, b) \). Now we must show that the endpoints $f(a) = f(b) = c$. Use continuity argument.
+                        \item Let $h(x) := f(x) - g(x)$ for all $x \in (a, b)$ then $h'(x) = f'(x) - g'(x) = 0$. By part (a) we know that there exists some $c \in \R$ such that $h(x) = c$ for all $x \in (a, b)$. Plugging back into definition for $h$ we get $c = f(x) - g(x)$ which rearranging yields $f(x) = g(x) + c$ for all $x \in (a, b)$ as desired.
+                    \end{enumerate}
+                \end{solution}
+        \item 
+            \begin{enumerate}
+                \item Suppose \( S \) is a non-empty bounded set in \( \mathbb{R} \) and that \( c \geq 0 \). We define the set \( cS \) as follows: \( cS = \{cs \,|\, s \in S\} \).
+                Prove that \( \sup(cS) = c \sup(S) \). Notice that one may similarly prove that \( \inf(cS) = c \inf(S) \) (but you don't need to write down a proof of this).
+                \item Suppose \( f : [a, b] \rightarrow \mathbb{R} \) is a bounded function. Prove that if \( c \geq 0 \), then
+    
+                \( U(cf, P) = c U(f, P) \) and \( L(cf, P) = c L(f, P) \)
+                
+                for any partition \( P \) of \( [a, b] \).
+                \item Prove that if \( f : [a, b] \rightarrow \mathbb{R} \) is a bounded function and \( c \geq 0 \), then \( U(cf) = cU(f) \) and \( L(cf) = cL(f) \).
+                \item Prove that if \( f \) is integrable and \( c \geq 0 \), then \( cf \) is integrable and
+                \( \int_{a}^{b} cf(x) \,dx = c \int_{a}^{b} f(x) \,dx \).
+            \end{enumerate}
+                \begin{solution}
+                    \begin{enumerate}
+                        \item We know for all $s \in S$
+                            \begin{align*}
+                                s &\leq \sup(S) \\
+                                cs &\leq c\sup(S) 
+                            \end{align*}
+                            Thus $c\sup(S)$ is an upper bound for $cS$, thus since the supremum is the least upper bound we get $\sup(cS) \leq c\sup(S)$. Likewise we know that 
+                            \begin{align*}
+                                cs &\leq \sup(cS) \\
+                                s &\leq \frac{\sup(cS)}{c}
+                            \end{align*}
+                            Thus $\frac{\sup(cS)}{c}$ is an upper bound for the set $S$, then since the supremum is the least upper bound we get that $\sup(S) \leq \frac{\sup(cS)}{c}$ and thus we get $c\sup(S) \leq \sup(cS)$. Combining the fact that $\sup(cS) \leq c\sup(S)$ and  $c\sup(S) \leq \sup(cS)$, we get the result $\sup(cS) = c\sup(S)$ as desired.
+                        \item Let $P = \{t_0, t_1, t_2, \ldots , t_n\}$ be a partition of $[a, b]$ and $c \geq 0$. Then 
+                            \begin{align*}
+                                U(cf, P) &= \sntk \sup\{cf([t_{k-1}, t_k])\} \cdot (t_k - t_{k-1}) \\
+                                        &= c \sntk \sup\{f([t_{k-1}, t_k])\} \cdot (t_k - t_{k-1}) \\
+                                        &= c \cdot U(f, P)
+                            \end{align*}
+                            Likewise
+                            \begin{align*}
+                                L(cf, P) &= \sntk \inf\{cf([t_{k-1}, t_k])\} \cdot (t_k - t_{k-1}) \\
+                                        &= c \sntk \inf\{f([t_{k-1}, t_k])\} \cdot (t_k - t_{k-1}) \\
+                                        &= c \cdot L(f, P)
+                            \end{align*}
+                        \item 
+                        \begin{align*}
+                            U(cf) &= \inf\{U(cf, P)\} \\
+                                 &= \inf\{cU(f, P)\} \\
+                                 &= c \inf\{U(f, P)\} \\
+                                 &= c U(f)
+                        \end{align*}
+                        Likewise
+                        \begin{align*}
+                            L(cf) &= \sup\{L(cf, P)\} \\
+                                 &= \sup\{cL(f, P)\} \\
+                                 &= c \sup\{L(f, P)\} \\
+                                 &= c L(f)
+                        \end{align*}
+                        \item Assume $f$ is integrable, then we know by using part (c)
+                        \begin{align*}
+                            U(f) &= L(f) \\
+                            cU(f) &= cL(f) \\
+                            U(cf) &= L(cf)
+                        \end{align*}
+                        Thus $cf$ is integrable and $c\int_{a}^{b} f  = \int_{a}^{b} cf$.
+                    \end{enumerate}
+                \end{solution}
+        \item Suppose that \( f : [a, b] \rightarrow \mathbb{R} \) is bounded on \( [a, b] \).
+            \begin{enumerate}
+                \item Prove that \( U(-f) = -L(f) \) and \( L(-f) = -U(f) \). Hint: You may use the fact that if \( S \) is a nonempty subset of \( \mathbb{R} \), then \( \inf S = -\sup(-S) \). You do not need to justify this fact.
+                \item Prove that if \( f \) is integrable on \( [a, b] \), then \( -f \) is integrable on \( [a, b] \) and
+    
+                \( \int_{a}^{b} -f(x) \,dx = -\int_{a}^{b} f(x) \,dx \).
+                \item Conclude that if \( c \in \mathbb{R} \) and \( f \) is integrable on \( [a, b] \), then \( cf \) is integrable on \( [a, b] \) and
+    
+                \( \int_{a}^{b} cf(x) \,dx = c \int_{a}^{b} f(x) \,dx \).
+            \end{enumerate}
+                \begin{solution}
+                    \begin{enumerate}
+                        \item Let $P = \{t_0, t_1, t_2, \ldots , t_n\}$ be a partition of $[a, b]$. Then 
+                            \begin{align*}
+                                U(-f) &= \inf\{U(-f, P)\} \\
+                                    &= \inf\left(\sntk \sup\{-f([t_{k-1}, t_k])\} \cdot (t_k - t_{k-1})\right) \\
+                                    &= \inf\left(\sntk -\inf\{f([t_{k-1}, t_k])\} \cdot (t_k - t_{k-1})\right) \\
+                                    &= -\sup\left(\sntk \inf\{f([t_{k-1}, t_k])\} \cdot (t_k - t_{k-1})\right) \\
+                                    &= -\sup\{L(f, P)\}  \\
+                                    &= -L(f)
+                            \end{align*}
+                            and 
+                            \begin{align*}
+                                L(-f) &= \sup\{L(-f, P)\} \\
+                                    &= \sup\left(\sntk \inf\{-f([t_{k-1}, t_k])\} \cdot (t_k - t_{k-1})\right) \\
+                                    &= -\inf\left(\sntk -\inf\{-f([t_{k-1}, t_k])\} \cdot (t_k - t_{k-1})\right) \\
+                                    &= -\inf\left(-\sntk -\sup\{f([t_{k-1}, t_k])\} \cdot (t_k - t_{k-1})\right) \\
+                                    &= -\inf\left(\sntk \sup\{f([t_{k-1}, t_k])\} \cdot (t_k - t_{k-1})\right) \\
+                                    &= -\inf\{U(f, P)\}  \\
+                                    &= -U(f)
+                            \end{align*}
+                        \item This is a specific case of 2 part (d) with $c = -1$.
+                        \item 3c solution
+                    \end{enumerate}
+                \end{solution}
+            \end{enumerate}
+            
+
+
+\end{document}
